@@ -50,6 +50,7 @@ HEIGHT=766
 GENERATE_MASK=0
 NUMSEGMENTS=10
 RESULTIMAGEBASE_GIVEN=1
+OUTPUTFILEFORMAT=png
 # do all output operations in a temporary dir? where should this be located?
 GENTMPDIR=0
 # OUTPUTDIR=`pwd`
@@ -72,6 +73,7 @@ function usage {
 	echo "-b background (canvas) image"
 	echo "-m maskimage (with label gray values 1,2,3,...)"
 	echo "-t do not generate temporary directory (working dir is used)"
+	echo "-O format of output files (png)"
         [[ $# -eq 1 ]] && exit $1 || exit $EXIT_FAILURE
 }
 
@@ -174,7 +176,7 @@ fi
 # parse options
 # Option -h (help) should always be there
 # if you have an option argument to be parsed use ':' after option
-while getopts ':n:i:b:m:o:vht' OPTION ; do
+while getopts ':n:i:b:m:o:O:vht' OPTION ; do
         case $OPTION in
         v)        VERBOSE=0
                 ;;
@@ -189,6 +191,8 @@ while getopts ':n:i:b:m:o:vht' OPTION ; do
 		RESULTIMAGEBASE_GIVEN=0
 		echo "given basename: "$RESULTIMAGEBASE;
 		;;
+	O)      OUTPUTFILEFORMAT="$OPTARG"
+	        ;;
 	b)	BACKGROUNDIMAGENAME="$OPTARG"
 		GENERATE_BACKGROUND=1
 		;;
@@ -261,7 +265,7 @@ do
 	
 	for THRESHOLD in `seq -w 0 1 "$NUMSEGMENTS"`
 	do
-		RESULTIMAGE="${RESULTIMAGEBASE}_$THRESHOLD.png"
+		RESULTIMAGE="${RESULTIMAGEBASE}_$THRESHOLD.$OUTPUTFILEFORMAT"
 		# debug: THRESHOLD=2
 		# generate black/white image from mask
 		# this is something to be worked out: 
