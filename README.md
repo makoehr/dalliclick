@@ -19,14 +19,21 @@ Usage
 Use -h to get help:
 
     dalliklick.sh -h
+    This script creates partially occluded image versions of the input image
+    Usage: dalliclick.sh <Options> imagefile...
+    Options:
+    -h             Show this help
+    -v             Increase verbosity (more details on actions)
+    -n Segments    Number of segments, max. 255 (Default 10)
+    -o Name        Output image base name (out -> out_NNN.png)
+    -b File        Background (canvas) image. The output images will have exactly
+		   the size of the background image.
+		   If this is not specified, an artifical background image will be
+		   generated.
+    -B color       Color for filling up images in wrong ratio (only relevant with -b)
+    -m maskimage   User specific mask image with label gray values 1,2,3,...
+		   If this is not specified a random mask image will be generated.
+    -t             Do not generate temporary directory (working dir is used)
+    -O format      Format of output files (Default: png)
 
-    This script creates partially occluded image versions of the input images
-    Usage: dalliklick.sh <options> imagefiles
-    -h (this) help
-    -v print verbose information
-    -n number of segments, max. 255
-    -o output image base name (out -> out_NNN.png)
-    -b background (canvas) image
-    -m maskimage (with label gray values 1,2,3,...)
-    -t do not generate temporary directory (working dir is used)
-
+  
